@@ -12,6 +12,7 @@ source config.txt
 
 # Load libraries
 source "./libraries/args.sh"
+source "./includes/functions.sh"
 
 # Read arguments
 if [ "$#" = 0 ]; then
