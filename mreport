@@ -39,6 +39,9 @@ else
 fi
 
 # ################################################# #
+make_data_dir
+make_report_dir
+
 if [ "$mr_dir" = 'true' ]; then
   skip
 else
