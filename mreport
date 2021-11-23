@@ -1,0 +1,76 @@
+#!/bin/bash
+
+#############################################
+# https://github.com/viktordw/mreport       #
+# License:                                  #
+# Publish date: Nov 17, 2021.               #
+# Version: 0.1-Alpha                        #
+#############################################
+
+# Load configuration
+source config.txt
+
+# Load libraries
+source "./libraries/args.sh"
+
+# Read arguments
+if [ "$#" = 0 ]; then
+  usage
+  exit 1
+else
+  user=$(get_value "user" "$@")
+  user=$(get_value "u" "$@")
+  domain=$(get_value "domain" "$@")
+  domain=$(get_value "d" "$@")
+  ip=$(get_value "ip" "$@")
+  mlist=$(get_value "mlist" "$@")
+  ll=$(get_value "ll" "$@")
+fi
+
+# Load functions
+source "./includes/functions.sh"
+
+# Turn output text coloring On or Off
+if [ "$conf_disable_colors" = "true" ]; then
+  fn_output_coloring_off
+else
+  fn_output_coloring_on
+fi
+
+# ################################################# #
+if [ "$mr_dir" = 'true' ]; then
+  skip
+else
+  skip
+fi
+
+if [ -n "$mlist" ]; then
+  echo "Retrieving malware list..."
+  sudo dwh -u "$user" --mlist > /mlist.txt
+else
+  skip
+fi
+
+if [ -n "$ll" ]; then
+  echo "Retrieving list from Last Login file..."
+else
+  skip
+fi
+
+if [ -n "$user" ]; then
+  echo "Finding user details..."
+else
+  skip
+fi
+
+if [ -n "$domain" ]; then
+  echo "Finding domain details..."
+else
+  skip
+fi
+
+if [ -n "$IP" ]; then
+  echo "Finding IP address details..."
+else
+  skip
+fi
